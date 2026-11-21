@@ -24,11 +24,11 @@ function compare(a,b){
  return null;
 }
 export function rhymeCandidates(lines){return lines.flatMap(candidates).slice(0,350)}
-export function analyzeRhymes(lines, modelLabels=null, method='local'){
+export function analyzeRhymes(lines, modelLabels=null, method='local', includeApprox=false){
  const all=lines.flatMap(candidates), limited=all.length>350, nodes=all.slice(0,350), parent=nodes.map((_,i)=>i), edges=[];
  const root=i=>{while(parent[i]!==i){parent[i]=parent[parent[i]];i=parent[i]}return i};
  for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
-  const a=nodes[i],b=nodes[j];if(a.lineIndex===b.lineIndex&&a.start===b.start)continue;const heuristic=compare(a,b);const predicted=!!modelLabels && modelLabels[i]!=null && modelLabels[i]===modelLabels[j];if(method==='server'?!predicted:!heuristic)continue;const type=method==='server'?(heuristic?'модель; '+heuristic:'модель: вид требует проверки'):'эвристика: '+heuristic;
+  const a=nodes[i],b=nodes[j];if(a.lineIndex===b.lineIndex&&a.start===b.start)continue;const heuristic=compare(a,b);const predicted=!!modelLabels && modelLabels[i]!=null && modelLabels[i]===modelLabels[j];const additional=method==='server'&&!!modelLabels&&includeApprox&&heuristic?.startsWith('неточная');if(method==='server'?(!predicted&&!additional):!heuristic)continue;const type=method==='server'?(predicted?(heuristic?'модель; '+heuristic:'модель: вид требует проверки'):'дополнительная эвристика: '+heuristic):'эвристика: '+heuristic;
   // Avoid matching a short form to another candidate with the same occurrence.
   parent[root(j)]=root(i);
   const rich=a.prior&&a.prior===b.prior?'богатая (опорный согласный совпадает)':'бедная (опорный согласный не совпадает)';
