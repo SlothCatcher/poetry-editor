@@ -6,6 +6,7 @@ import './style.css';
 import {syllabify} from 'syllables-ru';
 import DriveSync from './DriveSync';
 import {analyzeRhymes,rhymeCandidates} from './rhymes';
+import {getCachedRhymes,cacheRhymes} from './rhymeCache';
 
 const KEY='stroka-poems-v1', acute='\u0301', vowels=/[аеёиоуыэюя]/i;
 // Normalize a legacy grave-accent character immediately after a Russian vowel.
@@ -59,8 +60,9 @@ useEffect(()=>{
  if(!showRhymes||mode!=='grid'||rhymeMethod!=='server')return;
  const body=poem.body,terms=rhymeCandidates(body.split('\n')).map(n=>n.term);
  if(terms.length<2){setModelRhymes(null);setRhymeStatus('Для серверного анализа нужно не менее двух ударных слов.');return}
+ const cached=getCachedRhymes(terms);if(cached){setModelRhymes({body,labels:cached.labels});setRhymeStatus('Серверная модель RhymeTagger: результат из кэша'+(cached.stress_uncertain.length?`; часть ударений модель не смогла перенести в транскрипцию (${cached.stress_uncertain.length}).`:'.'));return}
  const abort=new AbortController();setModelRhymes(null);setRhymeStatus('Серверная модель анализирует рифмы…');
- const timer=setTimeout(async()=>{try{const response=await fetch('/api/rhymes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({terms}),signal:abort.signal});if(!response.ok)throw new Error('server');const data=await response.json();if(!Array.isArray(data.labels)||data.labels.length!==terms.length)throw new Error('invalid');setModelRhymes({body,labels:data.labels});setRhymeStatus('Серверная модель RhymeTagger'+(data.stress_uncertain?.length?`; часть ударений модель не смогла перенести в транскрипцию (${data.stress_uncertain.length}).`:'.'));}catch(e){if(e.name!=='AbortError')setRhymeStatus('Серверная модель недоступна. Выберите локальный анализ или запустите сервер.')}} ,650);
+ const timer=setTimeout(async()=>{try{const response=await fetch('/api/rhymes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({terms}),signal:abort.signal});if(!response.ok)throw new Error('server');const data=await response.json();if(!Array.isArray(data.labels)||data.labels.length!==terms.length)throw new Error('invalid');cacheRhymes(terms,data);setModelRhymes({body,labels:data.labels});setRhymeStatus('Серверная модель RhymeTagger'+(data.stress_uncertain?.length?`; часть ударений модель не смогла перенести в транскрипцию (${data.stress_uncertain.length}).`:'.'));}catch(e){if(e.name!=='AbortError')setRhymeStatus('Серверная модель недоступна. Выберите локальный анализ или запустите сервер.')}} ,650);
  return()=>{clearTimeout(timer);abort.abort()};
 },[showRhymes,mode,rhymeMethod,poem.id,poem.body]);
 function change(field,value){if(field==='body')value=normalizeAccents(value);setPoems(prev=>prev.map(p=>p.id===poem.id?{...p,[field]:value,updated:Date.now()}:p))}
