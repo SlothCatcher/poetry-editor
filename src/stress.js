@@ -18,12 +18,22 @@ export async function autoAccent(original) {
   const plain = original.replaceAll(acute, '');
   const predicted = await markStresses(plain, { marker: acute, markYo: true });
   if (predicted.replaceAll(acute, '') !== plain) throw new Error('Модель изменила исходный текст');
-  // Match the same word positions, retaining all manually entered accents in a word.
+  // Preserve manually entered accents. The model occasionally places a mark on
+  // a consonant (e.g. 'ест́ь'); never pass that invalid mark into the editor.
   const words = /[а-яё\u0301]+/gi;
   const originalWords = original.match(words) || [];
   let index = 0;
   return predicted.replace(words, word => {
     const before = originalWords[index++];
-    return before?.includes(acute) ? before : word;
+    if (before?.includes(acute)) return before;
+    const plainWord = word.replaceAll(acute, '');
+    const vowels = [...plainWord.matchAll(/[аеёиоуыэюя]/gi)];
+    // With exactly one vowel, any model accent has only one valid position.
+    if (word.includes(acute) && vowels.length === 1) {
+      const index = vowels[0].index + 1;
+      return plainWord.slice(0, index) + acute + plainWord.slice(index);
+    }
+    // For a multi-vowel word, discard invalid accents rather than guess.
+    return word.replace(/([^аеёиоуыэюя])́/gi, '$1');
   });
 }
