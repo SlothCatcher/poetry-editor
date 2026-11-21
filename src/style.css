@@ -46,3 +46,23 @@
 .collection-icon:hover{background:#e8efe3;color:#45603e}
 .collection-icon:focus-visible{outline:2px solid #6f8d65;outline-offset:2px}
 .collection-show{height:30px}
+/* The collection becomes a narrow rail instead of disappearing. */
+.workspace,:is(.workspace:fullscreen,.workspace.expanded-in-frame){grid-template-columns:290px minmax(0,1fr);transition:grid-template-columns 280ms ease}
+.workspace.collection-hidden,:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden{grid-template-columns:52px minmax(0,1fr)}
+.collection-panel,:is(.workspace:fullscreen,.workspace.expanded-in-frame) .collection-panel{position:relative;min-width:0;max-height:none;overflow:hidden;padding:0;border-right:1px solid #edf0e9;border-bottom:0}
+.collection-content{width:290px;height:100%;min-height:0;display:flex;flex-direction:column;padding:27px 18px;opacity:1;transition:opacity 160ms ease}
+.collection-hidden .collection-content{opacity:0;visibility:hidden;transition:opacity 160ms ease,visibility 0s linear 160ms}
+.collection-panel .aside-head{padding-right:38px}
+.collection-panel-toggle{position:absolute;top:27px;right:11px;z-index:1}
+@media(max-width:700px){
+ .workspace,:is(.workspace:fullscreen,.workspace.expanded-in-frame){grid-template-columns:min(200px,45vw) minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+ .workspace.collection-hidden,:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden{grid-template-columns:48px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+ .collection-content{width:min(200px,45vw);padding:18px 10px}
+ .collection-panel-toggle{top:18px;right:9px}
+ .collection-panel .aside-head{padding-right:32px}
+ .collection-panel .aside-head h2{font-size:18px}
+ .collection-panel .poem-list{flex-direction:column;overflow:auto}
+ .collection-panel .poem{min-width:0}
+ .editor{padding:20px 16px}
+}
+@media(prefers-reduced-motion:reduce){.workspace,.collection-content{transition:none!important}}
