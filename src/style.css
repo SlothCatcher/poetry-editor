@@ -23,3 +23,6 @@
 /* Separate the totals from the vertical scrollbar without moving the grid. */
 .grid-counts{flex-basis:44px}
 .grid-counts .grid-count{padding-right:12px}
+/* Keep equal cell sizes and shrink long syllables instead of scrolling them. */
+.cell{overflow:hidden;justify-content:center}
+.cell-label{display:inline-block;flex:none;white-space:pre;transform-origin:center center}
