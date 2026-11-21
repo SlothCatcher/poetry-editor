@@ -26,3 +26,11 @@
 /* Keep equal cell sizes and shrink long syllables instead of scrolling them. */
 .cell{overflow:hidden;justify-content:center}
 .cell-label{display:inline-block;flex:none;white-space:pre;transform-origin:center center}
+.editor-actions{display:flex;gap:20px;align-items:center;letter-spacing:0}
+.fullscreen-button{color:#687a63}
+.workspace:fullscreen{width:100vw;height:100vh;max-width:none;border:0;border-radius:0;grid-template-columns:290px minmax(0,1fr)}
+.workspace:fullscreen .editor{min-height:0;overflow:auto}
+.workspace:fullscreen .writing,.workspace:fullscreen .grid-view{max-height:none;min-height:0}
+.workspace:fullscreen .writing textarea{height:100%}
+.workspace:fullscreen aside{min-height:0;overflow:auto}
+@media(max-width:700px){.workspace:fullscreen{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.workspace:fullscreen aside{max-height:150px}.editor-actions{gap:10px}}
