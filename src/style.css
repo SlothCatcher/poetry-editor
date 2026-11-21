@@ -12,3 +12,11 @@
 .grid-line{display:grid;grid-template-columns:24px minmax(0,1fr) 24px}
 .grid-line .cells{min-width:0;overflow-x:auto;scrollbar-width:thin}
 .grid-line .grid-count{width:24px;margin-left:0;text-align:right}
+/* One shared horizontal scroll area for all rows; counts stay in place. */
+.grid-view{display:flex;align-items:flex-start;overflow-y:auto;overflow-x:hidden}
+.grid-scroll{flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.grid-rows{min-width:100%;width:max-content}
+.grid-line{display:flex;height:55px;min-height:55px;gap:10px}
+.grid-line .cells{min-width:max-content;overflow:visible}
+.grid-counts{flex:0 0 34px}
+.grid-counts .grid-count{display:flex;align-items:center;justify-content:flex-end;height:55px;width:100%;border-bottom:1px solid #f1f3ef}
