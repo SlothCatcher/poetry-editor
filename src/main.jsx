@@ -6,15 +6,17 @@ import './style.css';
 import {syllabify} from 'syllables-ru';
 
 const KEY='stroka-poems-v1', acute='\u0301', vowels=/[аеёиоуыэюя]/i;
+// Normalize a legacy grave-accent character immediately after a Russian vowel.
+const normalizeAccents = text => text.replace(/([аеёиоуыэюя])`/gi, '$1\u0301');
 const createPoem=()=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2),title:'',body:'',updated:Date.now()});
-function readPoems(){try{let p=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(p)){p=p.filter(x=>x&&typeof x.id==='string'&&typeof x.title==='string'&&typeof x.body==='string');if(p.length)return p}}catch{} return [createPoem()]}
+function readPoems(){try{let p=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(p)){p=p.filter(x=>x&&typeof x.id==='string'&&typeof x.title==='string'&&typeof x.body==='string');if(p.length)return p.map(item=>({...item,body:normalizeAccents(item.body)}))}}catch{} return [createPoem()]}
 // The library works on unaccented Russian words. Restore the accents by character position.
 function syllables(word){const plain=word.replaceAll(acute,'');const parts=syllabify(plain).split('·');let pos=0,source=0;return parts.map(part=>{let result='';for(let i=0;i<part.length;i++){result+=word[source++]||'';while(word[source]===acute)result+=word[source++];pos++}return result})}
 function lineCells(line){let cells=[], pending='';for(const token of line.match(/[а-яё\u0301]+|[^а-яё\u0301]+/gi)||[]){if(/[а-яё]/i.test(token)){let parts=syllables(token);if(!/[аеёиоуыэюя]/i.test(token)){pending+=token;continue}parts.forEach((part,i)=>{cells.push((i===0?pending:'')+part);pending='';});}else {if(cells.length)cells[cells.length-1]+=token;else pending+=token}}if(pending&&cells.length)cells[cells.length-1]+=pending;return cells}
 function count(line){return (line.match(/[аеёиоуыэюя]/gi)||[]).length}
 function App(){const [poems,setPoems]=useState(readPoems);const [id,setId]=useState(()=>poems[0].id);const [mode,setMode]=useState('text');const [status,setStatus]=useState('Сохранено на устройстве');const [notice,setNotice]=useState('');const [processing,setProcessing]=useState(false);const area=useRef(null);const gutter=useRef(null);const latest=useRef(poems);latest.current=poems;const poem=poems.find(p=>p.id===id)||poems[0];const lines=poem.body.split('\n');
 useEffect(()=>{try{localStorage.setItem(KEY,JSON.stringify(poems));setStatus('Сохранено на устройстве')}catch{setStatus('Не удалось сохранить')}},[poems]);
-function change(field,value){setPoems(prev=>prev.map(p=>p.id===poem.id?{...p,[field]:value,updated:Date.now()}:p))}
+function change(field,value){if(field==='body')value=normalizeAccents(value);setPoems(prev=>prev.map(p=>p.id===poem.id?{...p,[field]:value,updated:Date.now()}:p))}
 function add(){const p=createPoem();setPoems(prev=>[p,...prev]);setId(p.id);setMode('text')}
 function remove(){if(!confirm('Удалить это стихотворение? Это действие нельзя отменить.'))return;let rest=poems.filter(p=>p.id!==poem.id);if(!rest.length)rest=[createPoem()];setPoems(rest);setId(rest[0].id)}
 function mark(){const el=area.current;if(!el)return;const start=el.selectionStart,end=el.selectionEnd,s=el.value;if(start!==end){setNotice('Снимите выделение и поставьте курсор после гласной.');el.focus();return}let i=start-1;if(s[i]===acute)i--;if(i<0||!vowels.test(s[i])){setNotice('Поставьте курсор сразу после русской гласной.');el.focus();return}const exists=s[i+1]===acute;const next=exists?s.slice(0,i+1)+s.slice(i+2):s.slice(0,i+1)+acute+s.slice(i+1);const caret=i+1+(exists?0:1);change('body',next);setNotice(exists?'Ударение снято.':'Ударение отмечено.');requestAnimationFrame(()=>{el.focus();el.setSelectionRange(caret,caret)})}
