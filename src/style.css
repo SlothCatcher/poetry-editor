@@ -36,3 +36,4 @@
 @media(max-width:700px){:is(.workspace:fullscreen,.workspace.expanded-in-frame){grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}:is(.workspace:fullscreen,.workspace.expanded-in-frame) aside{max-height:150px}.editor-actions{gap:10px}}
 
 .workspace.expanded-in-frame{position:fixed;inset:0;z-index:10000;background:white}
+:is(.workspace:fullscreen,.workspace.expanded-in-frame){min-height:0}
