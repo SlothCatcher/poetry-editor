@@ -66,3 +66,8 @@
  .editor{padding:20px 16px}
 }
 @media(prefers-reduced-motion:reduce){.workspace,.collection-content{transition:none!important}}
+.collection-panel-toggle{width:34px;height:34px;background:#e8efe3;color:#5e7b53}
+.collection-panel-toggle:hover{background:#dce8d6;color:#405d38}
+.collection-arrow{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform 280ms ease}
+.collection-arrow.is-collapsed{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.collection-arrow{transition:none}}
