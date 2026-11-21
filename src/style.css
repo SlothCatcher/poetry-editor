@@ -71,3 +71,6 @@
 .collection-arrow{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform 280ms ease}
 .collection-arrow.is-collapsed{transform:rotate(180deg)}
 @media(prefers-reduced-motion:reduce){.collection-arrow{transition:none}}
+/* Align both collection controls to the same top edge. */
+.collection-panel .aside-head{align-items:flex-start}
+.collection-panel .aside-head .add{flex:0 0 34px}
