@@ -37,3 +37,7 @@
 
 .workspace.expanded-in-frame{position:fixed;inset:0;z-index:10000;background:white}
 :is(.workspace:fullscreen,.workspace.expanded-in-frame){min-height:0}
+.workspace.collection-hidden{grid-template-columns:minmax(0,1fr)}
+:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden{grid-template-columns:minmax(0,1fr)}
+.collection-toggle{color:#687a63;white-space:nowrap}
+@media(max-width:700px){:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden{grid-template-rows:minmax(0,1fr)}.editor-actions{flex-wrap:wrap;justify-content:flex-end}}
