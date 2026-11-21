@@ -90,3 +90,32 @@
 .collection-import-button.btn{width:100%;font-size:12px;padding:10px 12px}
 .collection-content .aside-bottom{margin-top:0}
 .collection-content .poem-list{overflow-y:auto;min-height:0;flex-shrink:1}
+/* Mobile: a narrow rail keeps the editor usable; the collection opens as a drawer. */
+.collection-backdrop{display:none}
+@media(max-width:700px){
+ header{height:64px;padding:0 14px}
+ .brand{font-size:24px;gap:5px}.brand span{font-size:22px}
+ .header-right{gap:5px}.header-right .btn{font-size:11px;padding:8px}
+ main{padding:0 12px}.intro{padding:32px 2px}.intro h1{font-size:clamp(29px,8vw,37px);letter-spacing:-1px}.intro p{font-size:12px;line-height:1.5}.eyebrow{font-size:9px;letter-spacing:1.2px}.decoration{font-size:48px;flex-shrink:0}
+ .workspace,.workspace.collection-hidden,:is(.workspace:fullscreen,.workspace.expanded-in-frame),:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden{position:relative;grid-template-columns:48px minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-height:580px}
+ .workspace.expanded-in-frame{position:fixed;min-height:0}
+ .workspace:fullscreen{min-height:0}
+ .collection-panel,:is(.workspace:fullscreen,.workspace.expanded-in-frame) .collection-panel{position:absolute;z-index:3;top:0;bottom:0;left:0;width:min(260px,calc(100% - 48px));max-height:none;box-shadow:4px 0 18px #253d241c;transition:width 280ms ease;overflow:hidden}
+ .collection-hidden .collection-panel,:is(.workspace:fullscreen,.workspace.expanded-in-frame).collection-hidden .collection-panel{width:48px;box-shadow:none}
+ .collection-content{width:min(260px,calc(100vw - 72px));padding:20px 12px}
+ .collection-panel-toggle{top:20px;right:7px}
+ .collection-panel .aside-head{padding-right:78px}.collection-panel .aside-head .add{top:20px;right:47px}.collection-panel .aside-head h2{font-size:20px}
+ .collection-backdrop{display:block;position:absolute;z-index:2;inset:0 0 0 48px;border:0;background:#24322440}
+ .editor{grid-column:2;min-width:0;padding:22px 14px}
+ .editor-top{align-items:flex-start;gap:10px}.editor-actions{justify-content:flex-end;gap:6px 12px}.editor-actions .text-button{font-size:11px}
+ .title-input.form-control{font-size:25px;margin:30px 0 18px}
+ .toolbar{gap:7px;padding-top:14px}.toolbar .btn{font-size:11px}.hint{font-size:11px}
+ .writing{min-height:240px}.writing textarea{font-size:16px}.gutter{width:34px}
+ .editor-bottom{gap:8px}.rhyme-analysis{max-height:160px}
+ .stress-dialog,.drive-dialog{padding:18px}.stress-dialog-header h2,.drive-dialog-top h2{font-size:21px}
+ .stress-choices .btn{font-size:16px}.stress-context{font-size:15px}
+ footer{padding:20px}
+}
+@media(max-width:350px){.decoration{display:none}.header-right .btn{font-size:10px}.editor{padding-left:10px;padding-right:10px}}
+@media(prefers-reduced-motion:reduce){.collection-panel{transition:none!important}}
+.fullscreen-icon{width:13px;height:13px;vertical-align:-2px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
