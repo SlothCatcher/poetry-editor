@@ -1,1 +1,25 @@
-<!doctype html><html lang="ru"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Строка — редактор стихов</title><script src="https://accounts.google.com/gsi/client" async defer></script></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Строка — редактор стихов</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <div id="root"><div id="startup-status" style="font:16px/1.6 system-ui,sans-serif;color:#40543e;padding:32px">Загружаем редактор…</div></div>
+  <script>
+    (function () {
+      function failed() {
+        var status = document.getElementById('startup-status');
+        if (!status) return;
+        status.textContent = 'Не удалось загрузить редактор. Проверьте соединение и откройте предпросмотр снова. Сохранённые данные браузера не удаляйте.';
+      }
+      window.addEventListener('error', failed, true);
+      window.addEventListener('unhandledrejection', failed);
+      window.setTimeout(failed, 15000);
+    })();
+  </script>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
