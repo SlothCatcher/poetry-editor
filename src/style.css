@@ -20,3 +20,6 @@
 .grid-line .cells{min-width:max-content;overflow:visible}
 .grid-counts{flex:0 0 34px}
 .grid-counts .grid-count{display:flex;align-items:center;justify-content:flex-end;height:55px;width:100%;border-bottom:1px solid #f1f3ef}
+/* Separate the totals from the vertical scrollbar without moving the grid. */
+.grid-counts{flex-basis:44px}
+.grid-counts .grid-count{padding-right:12px}
