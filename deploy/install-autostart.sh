@@ -10,8 +10,8 @@ if [[ $EUID -ne 0 ]]; then echo 'Запустите скрипт через sudo
 if [[ ! "$domain" =~ ^[a-zA-Z0-9]([a-zA-Z0-9.-]*[a-zA-Z0-9])?$ || ${#domain} -gt 253 || "$domain" == *..* ]]; then
   echo 'Укажите один корректный ASCII-домен без схемы, порта и специальных символов.' >&2; exit 2
 fi
-site=/srv/stroka/site
-backend=/srv/stroka/rhyme-server
+site=/home/poetry-editor
+backend=/home/stroke-rhyme-server
 nginx_file=/etc/nginx/sites-available/stroka
 nginx_link=/etc/nginx/sites-enabled/stroka
 limit_file=/etc/nginx/conf.d/stroka-limit.conf
@@ -21,7 +21,7 @@ id stroka >/dev/null 2>&1 || { echo 'Не найден пользователь 
 for file in "$site/dist/index.html" "$site/deploy/nginx.conf" "$backend/deploy/stroka-rhyme.service" "$backend/.venv/bin/uvicorn" "$backend/.venv/bin/python"; do
   [[ -f "$file" ]] || { echo "Не найден $file. Сначала установите и соберите приложение по deploy/README.md." >&2; exit 1; }
 done
-sudo -u stroka env NLTK_DATA=/srv/stroka/nltk_data "$backend/.venv/bin/python" -c 'import fastapi, uvicorn, rhymetagger, nltk; nltk.data.find("tokenizers/punkt"); nltk.data.find("tokenizers/punkt_tab")' || {
+sudo -u stroka env NLTK_DATA=/home/stroke-rhyme-server/nltk_data "$backend/.venv/bin/python" -c 'import fastapi, uvicorn, rhymetagger, nltk; nltk.data.find("tokenizers/punkt"); nltk.data.find("tokenizers/punkt_tab")' || {
   echo 'Не найдены Python-зависимости или ресурсы NLTK. Выполните подготовку сервиса из deploy/README.md.' >&2; exit 1;
 }
 # Refuse to replace an existing site: Certbot or an administrator may have changed it.

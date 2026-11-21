@@ -27,29 +27,30 @@ sudo apt install -y git nginx python3 python3-venv python3-pip espeak-ng curl
 node --version  # нужна версия 20 или новее; установите Node.js отдельно, если его нет
 npm --version
 sudo adduser --disabled-password --gecos '' stroka
-sudo mkdir -p /srv/stroka
-sudo chown stroka:stroka /srv/stroka
-sudo chmod 755 /srv /srv/stroka
+# Папки приложения уже существуют:
+ls -ld /home/poetry-editor /home/stroke-rhyme-server
 ```
 
-Если пользователь `stroka` уже существует, вместо `adduser` проверьте его настройки. Далее примеры предполагают учётную запись `stroka` для деплоя и работы службы; доступ к ней должен быть только у доверенных администраторов и GitHub Actions. Nginx нужен доступ на чтение `/srv/stroka/site/dist`.
+Если пользователь `stroka` уже существует, вместо `adduser` проверьте его настройки. Примеры предполагают отдельную учётную запись `stroka` для GitHub Actions и работы службы. Убедитесь, что она может читать и изменять **оба уже существующих клона** (для `git pull`, `npm ci` и Python-окружения), а Nginx может читать `/home/poetry-editor/dist` и проходить по всем родительским каталогам. Проверьте текущих владельцев и права перед их изменением; не запускайте рекурсивный `chown` без понимания последствий. Служба systemd использует `ProtectHome=read-only`, поскольку код размещён в `/home`.
 
-Под пользователем `stroka` клонируйте оба репозитория и выполните первоначальную настройку. Для публичных репозиториев подойдут HTTPS-адреса:
+Под пользователем `stroka` подготовьте уже существующие репозитории (не клонируйте их поверх текущих файлов):
 
 ```sh
 sudo -iu stroka
-cd /srv/stroka
-git clone https://github.com/OWNER/stroka-site.git site
-git clone https://github.com/OWNER/stroka-rhyme-server.git rhyme-server
-cd site && npm ci && npm run build
-cd /srv/stroka/rhyme-server
+cd /home/poetry-editor
+git remote -v  # origin должен указывать на GitHub-репозиторий сайта
+npm ci && npm run build
+cd /home/stroke-rhyme-server
+git remote -v  # origin должен указывать на GitHub-репозиторий сервиса
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-mkdir -p /srv/stroka/nltk_data
-NLTK_DATA=/srv/stroka/nltk_data .venv/bin/python -m nltk.downloader punkt punkt_tab
-NLTK_DATA=/srv/stroka/nltk_data .venv/bin/python -m unittest discover -s tests
+mkdir -p /home/stroke-rhyme-server/nltk_data
+NLTK_DATA=/home/stroke-rhyme-server/nltk_data .venv/bin/python -m nltk.downloader punkt punkt_tab
+NLTK_DATA=/home/stroke-rhyme-server/nltk_data .venv/bin/python -m unittest discover -s tests
 exit
 ```
+
+Если перемещаете существующее Python-окружение из другого каталога, создайте `.venv` заново: виртуальные окружения могут содержать абсолютные пути. У обоих клонов должна быть чистая ветка `main`, отслеживающая нужный `origin/main`.
 
 Для **приватных** репозиториев серверу нужны отдельные read-only deploy keys с доступом на чтение к каждому репозиторию, или доступ через отдельный сервисный аккаунт. Ключ для входа GitHub Actions на ваш сервер — другой ключ. Не помещайте токены или приватные ключи в файлы репозитория. Убедитесь, что `git fetch origin main` работает без интерактивного запроса под пользователем `stroka`.
 
@@ -58,15 +59,17 @@ exit
 После подготовки из шагов 1–2 можно включить автозапуск готовым скриптом, заменив домен на свой:
 
 ```sh
-sudo /srv/stroka/site/deploy/install-autostart.sh example.com
+sudo /home/poetry-editor/deploy/install-autostart.sh example.com
 ```
 
 Скрипт проверяет готовую сборку сайта, зависимости, ресурсы NLTK и пользователя, устанавливает конфигурации, проверяет `nginx -t` и включает `nginx.service` и `stroka-rhyme.service` через systemd. Уже существующий конфиг сайта и SSL-настройки не перезаписываются; если существующий unit отличается, скрипт попросит проверить его вручную. Скрипт не устанавливает пакеты и не настраивает HTTPS. При несовпадении путей используйте ручную настройку ниже.
 
+Если вы уже установили старую службу с путями `/srv/stroka/...`, скрипт не перезапишет отличающийся unit. Сначала проверьте существующий файл и сохраните его резервную копию, затем вручную установите новый unit из `/home/stroke-rhyme-server/deploy/`, выполните `sudo systemctl daemon-reload` и перезапустите службу. Аналогично проверьте ранее установленный Nginx-конфиг: скрипт намеренно не переписывает существующие файлы, чтобы не удалить настройки HTTPS.
+
 Вместо скрипта можно настроить компоненты вручную:
 
 ```sh
-sudo cp /srv/stroka/rhyme-server/deploy/stroka-rhyme.service /etc/systemd/system/
+sudo cp /home/stroke-rhyme-server/deploy/stroka-rhyme.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now stroka-rhyme.service
 sudo systemctl status stroka-rhyme.service
@@ -85,7 +88,7 @@ stroka ALL=(root) NOPASSWD: /usr/bin/systemctl restart stroka-rhyme.service
 
 ```sh
 echo 'limit_req_zone $binary_remote_addr zone=stroka_api:10m rate=1r/s;' | sudo tee /etc/nginx/conf.d/stroka-limit.conf
-sudo cp /srv/stroka/site/deploy/nginx.conf /etc/nginx/sites-available/stroka
+sudo cp /home/poetry-editor/deploy/nginx.conf /etc/nginx/sites-available/stroka
 sudo nano /etc/nginx/sites-available/stroka  # замените example.com на ваш домен
 sudo ln -s /etc/nginx/sites-available/stroka /etc/nginx/sites-enabled/stroka
 sudo nginx -t && sudo systemctl reload nginx
