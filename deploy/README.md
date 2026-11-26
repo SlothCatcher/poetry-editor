@@ -94,6 +94,23 @@ sudo ln -s /etc/nginx/sites-available/stroka /etc/nginx/sites-enabled/stroka
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
+**Важно для автоматической расстановки ударений:** Nginx должен отдавать файлы `.mjs` как `application/javascript` (или `text/javascript`), а `.wasm` как `application/wasm`. Правила уже включены в шаблон `deploy/nginx.conf`, но в ранее установленный конфиг их нужно добавить вручную в действующий `server` для сайта, не перезаписывая настройки TLS:
+
+```nginx
+location ~ \.mjs$ {
+    types { application/javascript mjs; }
+    default_type application/javascript;
+    try_files $uri =404;
+}
+location ~ \.wasm$ {
+    types { application/wasm wasm; }
+    default_type application/wasm;
+    try_files $uri =404;
+}
+```
+
+После правки выполните `sudo nginx -t && sudo systemctl reload nginx`. Убедитесь с помощью `curl -I https://ВАШ-ДОМЕН/assets/ИМЯ-ФАЙЛА.mjs`, что возвращается тип JavaScript; имя файла возьмите из браузерной консоли или папки `dist/assets`. Если у вас уже есть специальное правило `location ^~ /assets/`, добавьте обработку MIME в него: оно имеет приоритет перед приведёнными regex-location.
+
 Если уже есть активный конфиг `default`, убедитесь, что он не перехватывает ваш домен; при необходимости отключите его. Направьте DNS домена на сервер, откройте TCP 80 и 443 и настройте HTTPS, например через Certbot (`sudo certbot --nginx -d example.com` после установки Certbot). Проверьте `https://ВАШ-ДОМЕН/api/health` и сам сайт.
 
 Ограничение запросов не заменяет авторизацию: если сервис доступен через публичный сайт, его API тоже доступен посетителям. Для публичного использования добавьте аутентификацию/защиту от злоупотреблений на уровне приложения или инфраструктуры. Редактор сейчас не реализует авторизацию API.
