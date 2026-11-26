@@ -122,3 +122,13 @@
 /* Editor is the first content after the navigation bar. */
 main{padding-top:24px}
 @media(max-width:700px){main{padding-top:12px}}
+.control-with-hint{display:inline-flex;align-items:center;gap:5px}
+.toolbar{align-items:center}
+.hint-button{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;padding:0;border:1px solid #b9c8b4;border-radius:50%;background:#fff;color:#71846b;font:600 11px/1 Arial,sans-serif;cursor:pointer}
+.hint-button:hover,.hint-button:focus-visible,.hint-button[aria-expanded="true"]{background:#eaf0e6;border-color:#8da884;outline:none}
+.hint-popover{position:fixed;z-index:2147483647;padding:10px 12px;background:#354631;color:#fff;border-radius:7px;box-shadow:0 6px 18px #26352640;font:12px/1.5 Arial,sans-serif;pointer-events:none;overflow-wrap:anywhere}
+.editor-bottom{justify-content:flex-start}
+.rhyme-analysis{overflow:visible;max-height:none}
+.rhyme-analysis details ul{max-height:140px;overflow:auto}
+@media(max-width:700px){.rhyme-analysis{max-height:none}}
+main{padding-bottom:24px}
