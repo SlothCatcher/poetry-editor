@@ -209,3 +209,7 @@ main{padding-bottom:24px}
 .writing.showing-rhymes textarea{position:relative;z-index:1;background:transparent;caret-color:#313b2f;tab-size:8}
 .writing.showing-rhymes .gutter,.writing.showing-rhymes::after{z-index:2}
 @media(max-width:700px){.rhyme-text-layer{font-size:calc(16px * var(--editor-zoom,1))}}
+
+.rhyme-method .rhyme-results-button{margin-left:4px}
+.rhyme-dialog{width:min(640px,calc(100% - 32px));max-height:calc(100% - 32px);overflow:auto;padding:24px;border:1px solid #e4e8de;border-radius:12px;background:#fff;color:#526b4b;font:12px/1.55 Arial,sans-serif;box-shadow:0 20px 80px #23332138}
+.rhyme-dialog::backdrop{background:#1c2a1e80}.rhyme-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.rhyme-dialog-header h2{margin:0;color:#29342c;font:24px Georgia,serif}.rhyme-dialog .rhyme-legend{margin:10px 0 12px;font-size:12px}.rhyme-dialog .rhyme-legend span{align-items:flex-start}.rhyme-dialog .rhyme-legend i{margin-top:4px;flex:none}.rhyme-dialog details{margin-top:10px}.rhyme-dialog details ul{max-height:none;overflow:visible}
