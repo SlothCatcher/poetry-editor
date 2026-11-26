@@ -188,3 +188,7 @@ main{padding-bottom:24px}
 .grid-line,.grid-counts .grid-count{height:calc(55px * var(--editor-zoom,1));min-height:calc(55px * var(--editor-zoom,1))}
 .cell{flex-basis:calc(76px * var(--editor-zoom,1));width:calc(76px * var(--editor-zoom,1));height:calc(48px * var(--editor-zoom,1));font-size:calc(16px * var(--editor-zoom,1))}
 @media(max-width:700px){.writing textarea{font-size:calc(16px * var(--editor-zoom,1))}.zoom-control input{width:68px}}
+/* Syllable totals share the same centered column and typography in both views. */
+.gutter{width:30px;padding:0;text-align:center;color:#a4b49b;font-family:Arial,sans-serif;font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
+.grid-counts{flex:0 0 30px;margin-left:4px}
+.grid-counts .grid-count{justify-content:center;padding:0;color:#a4b49b;font-family:Arial,sans-serif;font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
