@@ -228,3 +228,6 @@ main{padding-bottom:24px}
 .editor-content .zoom-control output{width:auto;text-align:center;font-size:10px}
 :is(.workspace:fullscreen,.workspace.expanded-in-frame) .editor-content{max-height:none;min-height:0}
 @media(max-width:700px){.editor-content{min-height:240px}}
+
+.editor-bottom{align-items:center}.editor-bottom .zoom-control{margin-left:auto}.editor-bottom .zoom-control input{width:85px;height:20px;writing-mode:horizontal-tb;direction:ltr}
+@media(max-width:700px){.editor-bottom .zoom-control input{width:68px}}
