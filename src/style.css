@@ -119,3 +119,6 @@
 @media(max-width:350px){.decoration{display:none}.header-right .btn{font-size:10px}.editor{padding-left:10px;padding-right:10px}}
 @media(prefers-reduced-motion:reduce){.collection-panel{transition:none!important}}
 .fullscreen-icon{width:13px;height:13px;vertical-align:-2px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* Editor is the first content after the navigation bar. */
+main{padding-top:24px}
+@media(max-width:700px){main{padding-top:12px}}
