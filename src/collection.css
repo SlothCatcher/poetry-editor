@@ -5,3 +5,17 @@
 .collection-search{margin:0 0 10px}.collection-search input{font-size:12px}.search-summary{font-size:11px;color:#7d9177;margin-top:9px}.poem .search-path{font-size:10px;color:#719167;margin-top:5px}.collection-item.poem-item .poem{width:100%}
 
 .folder-up{display:flex;align-items:center;gap:9px;width:100%;padding:10px 12px;margin-bottom:5px;border:0;border-radius:7px;background:#f4f7f1;color:#405b3b;text-align:left;font-size:13px;font-weight:600;cursor:pointer}.folder-up span{font-size:16px;line-height:1}.folder-up:hover,.folder-up:focus-visible{background:#e3eddf;outline-color:#6f9865}
+
+/* Shared, stroked SVG icons throughout the collection. */
+.collection-svg{width:16px;height:16px;flex:none;display:inline-block;vertical-align:middle}
+.aside-head .add{display:inline-grid;place-items:center}
+.aside-head .add .collection-svg{width:20px;height:20px}
+.collection-tools button .collection-svg{width:14px;height:14px}
+.folder-breadcrumbs .collection-svg{width:12px;height:12px;color:#a1b09b}
+.folder-open{display:flex;align-items:flex-start;gap:7px}
+.folder-open .collection-svg{margin-top:1px}
+.folder-open span{min-width:0;font-size:13px}
+.item-actions button{display:inline-grid;place-items:center;padding:0}
+.item-actions .collection-svg{width:15px;height:15px}
+.drag-handle .collection-svg{width:16px;height:16px;fill:none}
+.folder-up .collection-svg{width:16px;height:16px}
