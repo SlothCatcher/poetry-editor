@@ -28,3 +28,5 @@
 .collection-panel .aside-head{padding-right:40px}.collection-items{display:flex;flex-direction:column;flex:1;min-height:0}.collection-add-bottom{position:sticky;bottom:0;z-index:1;display:grid;place-items:center;flex:none;width:100%;min-height:36px;margin-top:auto;padding:7px;border:0;border-radius:7px;background:#f1f6ed;color:#5e7b53;cursor:pointer}.collection-add-bottom .collection-svg{width:20px;height:20px}.collection-add-bottom:hover,.collection-add-bottom:focus-visible{background:#dce8d6;color:#405d38;outline-color:#6f8d65}
 
 .poem-item{flex-wrap:wrap}.poem-delete-action{flex:none;padding-right:4px}.poem-delete-confirm{flex:0 0 100%;padding:0 10px 10px 38px}.poem-reorder{padding-right:0}
+
+.poem-delete-action{flex-direction:column;gap:0}.poem-item .poem{padding-left:8px;padding-right:6px}

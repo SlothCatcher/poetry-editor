@@ -13,7 +13,7 @@ const CLIENT_KEY='stroka-google-client-id', BASE_KEY='stroka-drive-baseline-v1',
 const SCOPE='https://www.googleapis.com/auth/drive.appdata';
 const FILE='stroka-poems-v1.json';
 const snapshot=library=>JSON.stringify({poems:library.poems,folders:library.folders});
-const isEmpty=library=>library.folders.length===0 && library.poems.length===1 && !library.poems[0].title.trim() && !library.poems[0].body.trim() && !Object.keys(library.poems[0].stressChoices||{}).length;
+const isEmpty=library=>library.folders.length===0 && library.poems.length===1 && !library.poems[0].title.trim() && !library.poems[0].body.trim() && !Object.keys(library.poems[0].stressChoices||{}).length && !(library.poems[0].versions?.length);
 function baseline(){try{const b=JSON.parse(storage.getItem(BASE_KEY));if(b?.data){const old=JSON.parse(b.data);if(Array.isArray(old))b.data=snapshot({poems:old,folders:[]})}return b}catch{return null}}
 function validate(data){
  if(![1,2].includes(data?.version)||!Array.isArray(data.poems)||!data.poems.length||data.poems.some(p=>!p||typeof p.id!=='string'||typeof p.title!=='string'||typeof p.body!=='string'))throw new Error('Неверный формат файла на Google Диске');
