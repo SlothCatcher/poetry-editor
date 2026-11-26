@@ -180,3 +180,11 @@ main{padding-bottom:24px}
 .gutter{width:30px;padding-left:4px}
 .grid-counts{flex-basis:34px}
 .grid-counts .grid-count{padding-right:8px}
+
+.zoom-control{display:inline-flex;align-items:center;gap:7px;color:#71846b;font:11px Arial,sans-serif;white-space:nowrap}
+.zoom-control svg{width:17px;height:17px;flex:none}.zoom-control input{width:85px;height:20px;margin:0;cursor:pointer;accent-color:#6f8d65}.zoom-control input:focus-visible{outline:2px solid #83a47b;outline-offset:2px;border-radius:4px}.zoom-control output{width:31px;text-align:right;font-variant-numeric:tabular-nums}
+.writing textarea{font-size:calc(19px * var(--editor-zoom,1));line-height:calc(32px * var(--editor-zoom,1))}
+.gutter{line-height:calc(32px * var(--editor-zoom,1))}.gutter div{height:calc(32px * var(--editor-zoom,1))}
+.grid-line,.grid-counts .grid-count{height:calc(55px * var(--editor-zoom,1));min-height:calc(55px * var(--editor-zoom,1))}
+.cell{flex-basis:calc(76px * var(--editor-zoom,1));width:calc(76px * var(--editor-zoom,1));height:calc(48px * var(--editor-zoom,1));font-size:calc(16px * var(--editor-zoom,1))}
+@media(max-width:700px){.writing textarea{font-size:calc(16px * var(--editor-zoom,1))}.zoom-control input{width:68px}}
