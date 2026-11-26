@@ -19,3 +19,5 @@
 .item-actions .collection-svg{width:15px;height:15px}
 .drag-handle .collection-svg{width:16px;height:16px;fill:none}
 .folder-up .collection-svg{width:16px;height:16px}
+
+.editor-folder{margin:30px 0 0}.editor-folder-icon{width:17px;height:17px;flex:none}.editor-folder+.title-input.form-control{margin:16px 0 20px}
