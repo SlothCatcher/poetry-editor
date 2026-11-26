@@ -24,3 +24,5 @@
 
 .collection-panel .aside-head h2{margin:0}.editor-top .editor-folder{margin:0;min-width:0}.editor-top .editor-folder select{max-width:min(300px,45vw)}.collection-content>.folder-breadcrumbs{padding:0 4px 10px;flex-shrink:0}
 .editor-top+.title-input.form-control{margin:16px 0 20px}
+
+.collection-panel .aside-head{padding-right:40px}.collection-items{display:flex;flex-direction:column;flex:1;min-height:0}.collection-add-bottom{position:sticky;bottom:0;z-index:1;display:grid;place-items:center;flex:none;width:100%;min-height:36px;margin-top:auto;padding:7px;border:0;border-radius:7px;background:#f1f6ed;color:#5e7b53;cursor:pointer}.collection-add-bottom .collection-svg{width:20px;height:20px}.collection-add-bottom:hover,.collection-add-bottom:focus-visible{background:#dce8d6;color:#405d38;outline-color:#6f8d65}
