@@ -132,3 +132,10 @@ main{padding-top:24px}
 .rhyme-analysis details ul{max-height:140px;overflow:auto}
 @media(max-width:700px){.rhyme-analysis{max-height:none}}
 main{padding-bottom:24px}
+
+.editor-icon{width:18px;height:18px;display:block;flex:none}
+.editor-icon-button.btn{display:inline-grid;place-items:center;width:36px;height:34px;padding:0}
+.editor-actions{display:flex;align-items:center;gap:8px}
+.editor-actions .text-button{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border-radius:5px}
+.editor-actions .text-button:hover,.editor-actions .text-button:focus-visible{background:#eef3eb}
+.editor-actions .fullscreen-icon{width:18px;height:18px}
