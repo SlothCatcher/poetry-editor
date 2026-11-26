@@ -68,7 +68,7 @@
 @media(prefers-reduced-motion:reduce){.workspace,.collection-content{transition:none!important}}
 .collection-panel-toggle{width:34px;height:34px;background:#e8efe3;color:#5e7b53}
 .collection-panel-toggle:hover{background:#dce8d6;color:#405d38}
-.collection-arrow{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform 280ms ease}
+.collection-arrow{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform 280ms ease}
 .collection-arrow.is-collapsed{transform:rotate(180deg)}
 @media(prefers-reduced-motion:reduce){.collection-arrow{transition:none}}
 /* Align both collection controls to the same top edge. */
@@ -122,9 +122,9 @@
 /* Editor is the first content after the navigation bar. */
 main{padding-top:24px}
 @media(max-width:700px){main{padding-top:12px}}
-.control-with-hint{display:inline-flex;align-items:center;gap:5px}
+.control-with-hint{position:relative;display:inline-flex;align-items:center}.control-with-hint>.hint-button{position:absolute;z-index:3;top:-6px;right:-6px}.grid-control>.btn{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:-1px}.rhyme-extra .control-with-hint{padding-right:10px}
 .toolbar{align-items:center}
-.hint-button{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;padding:0;border:1px solid #b9c8b4;border-radius:50%;background:#fff;color:#71846b;font:600 11px/1 Arial,sans-serif;cursor:pointer}
+.hint-button{display:inline-grid;place-items:center;flex:none;width:15px;height:15px;padding:0;border:1px solid #b9c8b4;border-radius:50%;background:#fff;color:#71846b;font:600 10px/1 Arial,sans-serif;cursor:pointer}
 .hint-button:hover,.hint-button:focus-visible,.hint-button[aria-expanded="true"]{background:#eaf0e6;border-color:#8da884;outline:none}
 .hint-popover{position:fixed;z-index:2147483647;padding:10px 12px;background:#354631;color:#fff;border-radius:7px;box-shadow:0 6px 18px #26352640;font:12px/1.5 Arial,sans-serif;pointer-events:none;overflow-wrap:anywhere}
 .editor-bottom{justify-content:flex-start}
