@@ -213,3 +213,8 @@ main{padding-bottom:24px}
 .rhyme-method .rhyme-results-button{margin-left:4px}
 .rhyme-dialog{width:min(640px,calc(100% - 32px));max-height:calc(100% - 32px);overflow:auto;padding:24px;border:1px solid #e4e8de;border-radius:12px;background:#fff;color:#526b4b;font:12px/1.55 Arial,sans-serif;box-shadow:0 20px 80px #23332138}
 .rhyme-dialog::backdrop{background:#1c2a1e80}.rhyme-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.rhyme-dialog-header h2{margin:0;color:#29342c;font:24px Georgia,serif}.rhyme-dialog .rhyme-legend{margin:10px 0 12px;font-size:12px}.rhyme-dialog .rhyme-legend span{align-items:flex-start}.rhyme-dialog .rhyme-legend i{margin-top:4px;flex:none}.rhyme-dialog details{margin-top:10px}.rhyme-dialog details ul{max-height:none;overflow:visible}
+
+.rhyme-control{position:relative;display:inline-flex;align-items:center}
+.rhyme-settings{position:absolute;top:100%;left:0;padding-top:8px;width:max-content;max-width:calc(100vw - 80px);z-index:30}
+.rhyme-settings-inner{padding:10px 12px;border:1px solid #d9e3d3;border-radius:8px;background:#fbfcf9;box-shadow:0 6px 18px #2635262b}
+.rhyme-settings .rhyme-method{margin:0;gap:9px;flex-wrap:wrap}.rhyme-settings .rhyme-method>span:first-child{color:#687a63;font-size:11px;font-weight:600}.rhyme-settings .rhyme-results-button{margin-left:0}
