@@ -139,3 +139,6 @@ main{padding-bottom:24px}
 .editor-actions .text-button{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border-radius:5px}
 .editor-actions .text-button:hover,.editor-actions .text-button:focus-visible{background:#eef3eb}
 .editor-actions .fullscreen-icon{width:18px;height:18px}
+
+.brand-icon{width:25px;height:25px;flex:none;color:#5e7b53}
+@media(max-width:700px){.brand-icon{width:21px;height:21px}}
