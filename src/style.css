@@ -192,3 +192,10 @@ main{padding-bottom:24px}
 .gutter{width:30px;padding:0;text-align:center;color:#a4b49b;font-family:Arial,sans-serif;font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
 .grid-counts{flex:0 0 30px;margin-left:4px}
 .grid-counts .grid-count{justify-content:center;padding:0;color:#a4b49b;font-family:Arial,sans-serif;font-size:12px;font-weight:400;font-variant-numeric:tabular-nums}
+/* Counters sit just inside the vertical scrollbar, separated by a soft fade. */
+.writing{position:relative}
+.writing textarea{padding-right:42px}
+.gutter{position:absolute;z-index:1;top:0;bottom:0;right:8px;background:linear-gradient(to right,rgba(255,255,255,.82),#fff 45%);pointer-events:none}
+.writing::after{content:"";position:absolute;z-index:1;top:0;bottom:8px;right:38px;width:14px;background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.82));pointer-events:none}
+.grid-counts{position:relative;background:linear-gradient(to right,rgba(255,255,255,.82),#fff 45%)}
+.grid-counts::before{content:"";position:absolute;z-index:1;top:0;bottom:0;right:100%;width:14px;background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.82));pointer-events:none}
