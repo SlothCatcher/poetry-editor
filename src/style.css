@@ -202,3 +202,10 @@ main{padding-bottom:24px}
 /* Visible soft shadow at the left edge of the syllable-count column. */
 .writing::after,.grid-counts::before{width:44px;background:linear-gradient(to right,rgba(80,105,73,0),rgba(80,105,73,.18))}
 .gutter,.grid-counts{background:linear-gradient(to right,#eef3eb,#f9fbf7 12px,#fff)}
+
+.rhyme-text-overlay{position:absolute;inset:0 8px 8px 0;overflow:hidden;pointer-events:none;z-index:0}
+.rhyme-text-layer{white-space:pre;width:max-content;min-width:100%;color:transparent;font-family:StrokaSerif,serif;font-size:calc(19px * var(--editor-zoom,1));line-height:calc(32px * var(--editor-zoom,1));font-weight:400;letter-spacing:normal;tab-size:8;transform-origin:top left}
+.rhyme-text-layer span{color:transparent}
+.writing.showing-rhymes textarea{position:relative;z-index:1;background:transparent;caret-color:#313b2f;tab-size:8}
+.writing.showing-rhymes .gutter,.writing.showing-rhymes::after{z-index:2}
+@media(max-width:700px){.rhyme-text-layer{font-size:calc(16px * var(--editor-zoom,1))}}
