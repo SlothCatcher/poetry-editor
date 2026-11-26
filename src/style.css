@@ -142,3 +142,6 @@ main{padding-bottom:24px}
 
 .brand-icon{width:25px;height:25px;flex:none;color:#5e7b53}
 @media(max-width:700px){.brand-icon{width:21px;height:21px}}
+
+.spell-panel{flex:0 0 100%;border:1px solid #e1e9dc;border-radius:7px;padding:10px 12px;background:#f8faf6;font:12px/1.5 Arial,sans-serif;color:#526b4b;max-height:220px;overflow:auto}
+.spell-title{font-weight:600}.spell-title span{font-weight:400;color:#91a18d;margin-left:4px}.spell-status,.spell-note{color:#899987;margin:5px 0}.spell-words,.spell-suggestions{display:flex;gap:5px;flex-wrap:wrap;align-items:center}.spell-word,.spell-suggestions button{border:1px solid #d8e3d2;background:white;color:#536f4c;border-radius:5px;padding:3px 7px;font:12px Arial,sans-serif;cursor:pointer}.spell-word:hover,.spell-word.active,.spell-suggestions button:hover{background:#e5efe0;border-color:#a7bfa0}.spell-suggestions{margin-top:10px}.spell-note{flex:0 0 100%;font-size:11px}
