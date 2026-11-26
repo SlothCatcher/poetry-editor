@@ -200,5 +200,5 @@ main{padding-bottom:24px}
 .grid-counts{position:relative;background:linear-gradient(to right,rgba(255,255,255,.82),#fff 45%)}
 .grid-counts::before{content:"";position:absolute;z-index:1;top:0;bottom:0;right:100%;width:14px;background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,.82));pointer-events:none}
 /* Visible soft shadow at the left edge of the syllable-count column. */
-.writing::after,.grid-counts::before{width:22px;background:linear-gradient(to right,rgba(80,105,73,0),rgba(80,105,73,.18))}
+.writing::after,.grid-counts::before{width:44px;background:linear-gradient(to right,rgba(80,105,73,0),rgba(80,105,73,.18))}
 .gutter,.grid-counts{background:linear-gradient(to right,#eef3eb,#f9fbf7 12px,#fff)}
